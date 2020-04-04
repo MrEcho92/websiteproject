@@ -1,0 +1,208 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}{{product.name}}{%endblock%}
+{%block meta_description%} EugeneAuto product lists {% endblock%}
+{% block content %}
+
+  <section class="post-wrapper-top">
+    <div class="container">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <ul class="breadcrumb">
+          <li><a href="{% url 'home'%}">Home</a></li>
+          <li>{{product.name}}</li>
+        </ul>
+        <h2>{{product.name|upper }}</h2>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <!-- search -->
+        <div class="search-bar">
+          <form action="" method="get">
+            <fieldset>
+              <input type="image" src="img/pixel.gif" class="searchsubmit" alt="" />
+              <input type="text" class="search_text showtextback" name="s" id="s" value="Search..." />
+            </fieldset>
+          </form>
+        </div>
+        <!-- / end div .search-bar -->
+      </div>
+    </div>
+  </section>
+  <!-- end post-wrapper-top -->
+
+  <section class="marketplace-top">
+    <div id="market-wrapper">
+      <div class="item_image">
+        <img data-effect="fade" class="aligncenter" width="500" height="200" src="{% if product.image %} {{ product.image.url}} {% else %}{% static 'website/img/404.png'%} {% endif %}" alt="No Image found">
+      </div>
+      <!-- end item_image -->
+    </div>
+  </section>
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+
+        <div class="general-title text-center">
+          <h3>{{ product.name }}</h3>
+          <h4><a href="{{ product.category.get_absolute_url }}"></a>{{product.category}}</h4>
+          <hr>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="item_details">
+
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="theme_details">
+              <div class="details_section">
+                <h3>Item Details</h3>
+                <ul>
+                  <li class="version">Size: <span>11.8” X 7.87” X 1.57</span></li>
+                  <li class="release">Release Date: <span>28 February, 2014</span></li>
+                  <li class="designer">Designer: <span>Matt Stinson</span></li>
+                  <li class="designer">Material: <span>Tanned Italian Leather</li>
+                                    </ul>
+                            </div>
+                        </div>
+                    </div><!-- col-lg-3 -->
+
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="theme_details">
+                            <div class="item-description">
+                                <p> {{product.description|linebreaks}}</p>
+                            </div><!-- item-description -->
+                        </div><!-- theme_details -->
+                    </div><!-- col-lg-6 -->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12">
+                        <div class="theme_details">
+                        	<div class="item_price">
+                            	<h3><span><small>£</small>
+                                {% if product.discounted_price %}
+                                {{ product.discounted_price }}
+                                {% else %}
+                                {{product.price}}
+                                {% endif %}
+                              </span></h3>
+              </div>
+              <!-- item_price -->
+              <hr>
+              <div class="buttons">
+                <a class="button btn-block large" href="#">SEE GALLERY</a>
+                {% if request.user.is_authenticated %}
+                <a class="button btn-block large" href="{{product.get_add_to_cart_url}}"><i class="fa fa-download"></i> ADD TO CART </a>
+                <a class="button btn-block large" href="{{product.get_remove_from_cart_url}}"><i class="fa fa-download"></i> REMOVE FROM CART </a>
+                {% else %}{% endif %}
+              </div>
+              <!-- buttons -->
+              <hr>
+              <div class="rating text-center">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+                <p>Users Rating</p>
+              </div>
+              <!-- rating -->
+            </div>
+            <!-- theme_details -->
+          </div>
+          <!-- col-lg-3 -->
+
+        </div>
+        <!-- item_details -->
+
+        <div class="clearfix"></div>
+
+        <div class="general-title text-center">
+          <h3>Product Features</h3>
+          <p>More information about your product</p>
+          <hr>
+        </div>
+
+        <div class="divider"></div>
+        <div class="theme_overviews clearfix">
+          <div class="col-lg-4 col-md-4 col-sm-12 first">
+            <div class="services">
+              <div class="icon-container">
+                <i class="fa fa-arrows"></i>
+              </div>
+              <header>
+                <h3>Different Sizes</h3>
+              </header>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="services">
+              <div class="icon-container">
+                <i class="fa fa-heart"></i>
+              </div>
+              <header>
+                <h3>HandMade in Italy</h3>
+              </header>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-12 last">
+            <div class="services">
+              <div class="icon-container">
+                <i class="fa fa-lock"></i>
+              </div>
+              <header>
+                <h3>Secure Metal Zip</h3>
+              </header>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-12 first">
+            <div class="services">
+              <div class="icon-container">
+                <i class="fa fa-trophy"></i>
+              </div>
+              <header>
+                <h3>Premium Design</h3>
+              </header>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="services">
+              <div class="icon-container">
+                <i class="fa fa-cloud"></i>
+              </div>
+              <header>
+                <h3>Softly Padded</h3>
+              </header>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-12 last">
+            <div class="services">
+              <div class="icon-container">
+                <i class="fa fa-pencil"></i>
+              </div>
+              <header>
+                <h3>Signed Product</h3>
+              </header>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+            </div>
+          </div>
+
+        </div>
+        <!-- theme / Products overview -->
+
+      </div>
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+
+{% endblock %}

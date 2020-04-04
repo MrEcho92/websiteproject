@@ -1,0 +1,239 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %} {{user.username|upper}} order summary and checkout {%endblock%}
+{%block meta_description%} EugeneAuto- order summary in your cart {% endblock%}
+{% block content %}
+
+  <section class="post-wrapper-top">
+    <div class="container">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <ul class="breadcrumb">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li>Order summary & Checkout</li>
+        </ul>
+        <h2>ORDER SUMMARY</h2>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <!-- search -->
+        <div class="search-bar">
+          <form action="" method="get">
+            <fieldset>
+              <input type="image" src="img/pixel.gif" class="searchsubmit" alt="" />
+              <input type="text" class="search_text showtextback" name="s" id="s" value="Search..." />
+            </fieldset>
+          </form>
+        </div>
+        <!-- / end div .search-bar -->
+      </div>
+    </div>
+  </section>
+  <!-- end post-wrapper-top -->
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-8 col-md-8 col-sm-8 col-xs-12 clearfix">
+
+        <table class="table table-striped checkout" data-effect="fade">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Item Name</th>
+              <th>Item Price</th>
+              <th>Quantity</th>
+              <th>Total Item Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order_product in object.products.all %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ order_product.product.name }}</td>
+              <td>{{ order_product.product.price }}</td>
+              <td>
+                <a href="{% url 'myshop:remove_single_product_from_cart' order_product.product.slug order_product.product.id %}"><i class="fas fa-minus ml-2"></i></a>
+                  {{ order_product.quantity }}
+                <a href="{% url 'myshop:add_to_cart' order_product.product.slug order_product.product.id %}"><i class="fas fa-plus ml-2"></i></a>
+              </td>
+              <td>
+                {% if order_product.product.discounted_price %}
+                  £ {{ order_product.get_total_discount_order_price}}
+                  <span class="badge badge-primary">Saving... £{{order_product.get_amount_saved}}</span>
+                {%else%}
+                  £ {{ order_product.get_total_order_price}}
+                {%endif%}
+                <a style="color:red;" href={% url 'myshop:remove_from_cart' order_product.product.slug order_product.product.id%}"> Remove from cart</a>
+              </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="5"> Your cart is empty</td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                <a class="btn btn-primary float-right ml-2" href="{% url 'myshop:product_list'%}">Continue Shopping </a>
+                </td>
+              </tr>
+              {% endfor %}
+              {% if object.get_total %}
+              <tr>
+                <td colspan="4"><b> Order Total </b></td>
+                <td><b>£ {{ object.get_total }}</b></td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                <a class="btn btn-primary float-right ml-2" href="{% url 'myshop:product_list'%}">Continue Shopping </a>
+                <a class="btn btn-warning float-right" href="">Proceed to checkout below </a>
+
+                </td>
+              </tr>
+              {% endif %}
+          </tbody>
+        </table>
+
+
+
+        <div class="payments">
+          <p><img alt="" src="{% static 'website/img/payments.png'%}"></p>
+
+          <label class="checkbox-inline">
+                <input id="inlineCheckbox1" type="checkbox" value="option1">
+                <strong>PAYPAL</strong>
+                </label>
+          <label class="checkbox-inline">
+                <input id="inlineCheckbox2" type="checkbox" checked="" value="option2">
+                <strong>CREDIT CARD</strong>
+                </label>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="divider"></div>
+
+        <h5 class="title">PERSONAL INFORMATION</h5>
+
+        <form id="personalinfo" action="" name="personalinfo" method="post">
+          <label for="email">Email Address <span class="required">*</span></label>
+          <input type="text" name="name" id="email" class="form-control" placeholder="example@yoursite.com">
+          <label for="fname">First Name <span class="required">*</span></label>
+          <input type="text" name="fname" id="fname" class="form-control" placeholder="John">
+          <label for="lname">Last Name </label>
+          <input type="text" name="lname" id="lname" class="form-control" placeholder="DOE">
+        </form>
+
+        <div class="clearfix"></div>
+        <div class="divider"></div>
+
+        <h5 class="title">CART DETAILS</h5>
+
+        <form id="cartinfo" action="" name="cartinfo" method="post">
+          <label for="cardnumber">Card Number <span class="required">*</span></label>
+          <input type="text" name="cardnumber" id="cardnumber" class="form-control" placeholder="Your card number">
+          <label for="cvc">CVC <span class="required">*</span></label>
+          <input type="text" name="cvc" id="cvc" class="form-control" placeholder="Security code">
+          <label for="ncard">Name on the Card <span class="required">*</span></label>
+          <input type="text" name="ncard" id="ncard" class="form-control" placeholder="Name on the card">
+          <label for="ncard">Expiration (MM/YY) <span class="required">*</span></label>
+
+          <div class="clearfix"></div>
+
+          <select class="form-control" style="width:75px; float:left; margin-right:10px;">
+					<option>01</option>
+					<option>02</option>
+					<option>03</option>
+					<option>04</option>
+					<option>05</option>
+					<option>06</option>
+					<option>07</option>
+					<option>08</option>
+					<option>09</option>
+					<option>10</option>
+					<option>11</option>
+					<option>12</option>
+				</select>
+          <select class="form-control" style="width:75px;float:left">
+					<option>14</option>
+					<option>15</option>
+					<option>16</option>
+					<option>17</option>
+					<option>18</option>
+					<option>19</option>
+				</select>
+        </form>
+
+        <div class="clearfix"></div>
+        <div class="divider"></div>
+
+        <h5 class="title">BILLING INFORMATION</h5>
+
+        <form id="billinginfo" action="" name="billinginfo" method="post">
+          <label for="baddress">Billing Address 1</label>
+          <input type="text" name="baddress" id="baddress" class="form-control" placeholder="Address line 1">
+          <label for="baddress1">Billing Address 2 (Optional)</label>
+          <input type="text" name="baddress1" id="baddress1" class="form-control" placeholder="Address line 2">
+          <label for="bcity">Billing City</label>
+          <input type="text" name="bcity" id="bcity" class="form-control" placeholder="Your city">
+          <label for="bzip">Zip / Postal Code </label>
+          <input type="text" name="bzip" id="bzip" class="form-control" placeholder="Your ZIP or postal code">
+
+          <div class="clearfix"></div>
+
+          <select class="form-control">
+					<option>United States</option>
+					<option>Spain</option>
+					<option>United Kingdom</option>
+					<option>France</option>
+					<option>Japan</option>
+					<option>Brazil</option>
+					<option>Other Country</option>
+				</select>
+          <select class="form-control">
+					<option>Alabama</option>
+					<option>Other City</option>
+					<option>Other City</option>
+					<option>Other City</option>
+					<option>Other City</option>
+					<option>Other City</option>
+					<option>Other City</option>
+					<option>Other City</option>
+				</select>
+          <br>
+          <div class="clearfix"></div>
+          <button class="button">SHOW TERMS</button>
+          <div class="clearfix"></div>
+
+          <label class="checkbox-inline">
+                    <input id="inlineCheckbox3" type="checkbox" value="option1">
+                    <strong>AGREE TO TERMS</strong>
+                </label>
+
+          <br><br>
+          <div class="well"><strong>PURCHASE TOTAL:</strong> £ {{ object.get_total }}</div>
+          <br>
+          <button class="button large btn-block">PURCHASE THIS ITEM</button>
+        </form>
+
+      </div>
+      <!-- end content -->
+
+      <div id="sidebar" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+        <div class="widget">
+          <h4 class="title">
+                        <span>Subscribe</span>
+                    </h4>
+          <form id="subscribe" action="mc.php" name="subscribe" method="post">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Name">
+            <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+            <div class="pull-right">
+              <input type="submit" value="Subscribe" id="submit" class="button">
+            </div>
+          </form>
+        </div>
+
+      </div>
+      <!-- end sidebar -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+
+{% endblock %}

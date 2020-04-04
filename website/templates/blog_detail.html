@@ -1,0 +1,161 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %} Future Automative in Nigeria {%endblock%}
+{%block meta_description%} This pages showcases future of automobiles in Nigeria - electric cars.  {% endblock%}
+{% block content %}
+
+  <section class="post-wrapper-top">
+    <div class="container">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <ul class="breadcrumb">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li>Blog Post</li>
+        </ul>
+        <h2>Blog - Future Automobiles </h2>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <!-- search -->
+        <div class="search-bar">
+          <form action="" method="get">
+            <fieldset>
+              <input type="image" src="{% static 'website/img/pixel.gif'%}" class="searchsubmit" alt="" />
+              <input type="text" class="search_text showtextback" name="s" id="s" value="Search..." />
+            </fieldset>
+          </form>
+        </div>
+        <!-- / end div .search-bar -->
+      </div>
+    </div>
+  </section>
+  <!-- end post-wrapper-top -->
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-8 col-md-8 col-sm-8 col-xs-12 clearfix">
+        <h2>{{ post.title }}</h2>
+        <p>{{post.author}}|{{post.created_on}}</p>
+        <img src="{{ post.image_upload.url }}" alt="Image Not Found" class='img-fluid rounded'>
+        <p>{{post.content| linebreaks}}</p>
+
+      <!-- end content -->
+      </div>
+      <div id="sidebar" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+        <div class="widget">
+          <h4 class="title">
+                        <span>Subscribe</span>
+                    </h4>
+          <form id="subscribe" action="mc.php" name="subscribe" method="post">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Name">
+            <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+            <div class="pull-right">
+              <input type="submit" value="Subscribe" id="submit" class="button">
+            </div>
+          </form>
+        </div>
+
+        <div class="widget">
+          <h4 class="title">
+                      <span>Recent Posts</span>
+                    </h4>
+          <div class="tabbable">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="left-sidebar.html#recent" data-toggle="tab">Recent</a></li>
+              <li><a href="left-sidebar.html#popular" data-toggle="tab">Popular</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="recent">
+                <ul class="recent_posts">
+                  <li>
+                    <a href="#">
+                                    <img src="{% static 'website/img/recent_post_01.png'%}" alt="" />Our New Dashboard Is Here
+                                    </a>
+                    <a class="readmore" href="#">read more</a>
+                  </li>
+                  <li>
+                    <a href="#">
+                                    <img src="{% static 'website/img/recent_post_02.png'%}" alt="" />Design Is In The Air
+                                    </a>
+                    <a class="readmore" href="#">read more</a>
+                  </li>
+                </ul>
+                <!-- recent posts -->
+              </div>
+              <div class="tab-pane" id="popular">
+                <ul class="recent_posts">
+                  <li>
+                    <a href="#">
+                                    <img src="{% static 'website/img/flickr_01.jpg'%}" alt="" />Blog Post With Image
+                                    </a>
+                    <a class="readmore" href="#">read more</a>
+                  </li>
+                  <li>
+                    <a href="#">
+                                    <img src="{% static 'website/img/flickr_02.jpg'%}" alt="" />Another Recent Post with Image
+                                    </a>
+                    <a class="readmore" href="#">read more</a>
+                  </li>
+                </ul>
+                <!-- recent posts -->
+              </div>
+            </div>
+          </div>
+          <!-- tabbable -->
+        </div>
+        <!-- end widget -->
+
+
+        <div class="widget">
+          <h4 class="title">
+                        <span>Categories</span>
+                    </h4>
+          <ul class="categories">
+            <li><a href="#">Logo Design</a></li>
+            <li><a href="l#">Web Design</a></li>
+            <li><a href="#">WordPress</a></li>
+            <li><a href="#">HTML5 & CSS3</a></li>
+            <li><a href="#">Other Works</a></li>
+          </ul>
+        </div>
+
+        <div class="widget">
+          <h4 class="title">
+                        <span>Pages</span>
+                    </h4>
+          <ul class="pages">
+            <li><a href="#">Homepage</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Shopping</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="widget">
+          <h4 class="title">
+                        <span>Tags</span>
+                    </h4>
+
+          <div class="tagcloud">
+            <a href="#" class="" title="12 topics">advice</a>
+            <a href="#" class="" title="2 topics">wordpress</a>
+            <a href="#" class="" title="21 topics">joomla</a>
+            <a href="#" class="" title="5 topics">blog</a>
+            <a href="#" class="" title="62 topics">cms</a>
+            <a href="#" class="" title="12 topics">drupal</a>
+            <a href="#" class="" title="88 topics">html5</a>
+            <a href="#" class="" title="15 topics">css3</a>
+            <a href="#" class="" title="31 topics">orange</a>
+            <a href="#" class="" title="16 topics">love to</a>
+            <a href="#" class="" title="32 topics">tutorials</a>
+            <a href="#" class="" title="12 topics">how to</a>
+            <a href="#" class="" title="44 topics">advice</a>
+          </div>
+        </div>
+
+      </div>
+      <!-- end sidebar -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{# at the terminal, run pip install django-bootstrap4 #}
+{% load bootstrap4 %}
+{% block title %} Sign up {%endblock%}
+{%block meta_description%} Sign up to shop at Eugene Stores{% endblock%}
+
+
+{% block content %}
+<div class="container">
+  <h1>Sign Up</h1>
+  <p>Note you have to sign up to access more. Have fun!</p>
+  <form method="POST" action="{% url 'account:login'%}" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    {% endbuttons %}
+  </form>
+</div>
+{% endblock %}
